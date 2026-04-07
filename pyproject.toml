@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rag-pipeline-doctor"
+version = "1.0.0"
+description = "OpenEnv RL environment: diagnose and repair broken RAG pipelines"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    {name = "RAG Pipeline Doctor Team"}
+]
+license = {text = "MIT"}
+keywords = ["openenv", "rag", "retrieval", "llm", "evaluation"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "fastapi>=0.100.0",
+    "uvicorn>=0.24.0",
+    "pydantic>=2.0.0",
+    "requests>=2.31.0",
+    "openai>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.urls]
+Homepage = "https://huggingface.co/spaces/YOUR_USERNAME/rag-pipeline-doctor"
+Repository = "https://github.com/Szyyne/RAG_pipeline"
+Documentation = "README.md"
+
+[tool.setuptools]
+packages = ["server"]
