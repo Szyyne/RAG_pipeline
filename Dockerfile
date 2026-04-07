@@ -2,7 +2,7 @@
 # Builds a containerized FastAPI server exposing the OpenEnv RL environment.
 # HuggingFace Spaces requires port 7860.
 
-FROM python:3.11-slim
+FROM python:3.11
 
 # Non-root user for HF Spaces compatibility
 RUN useradd -m -u 1000 appuser
