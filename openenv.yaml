@@ -1,0 +1,47 @@
+spec_version: 1
+name: rag_pipeline_doctor
+type: typed
+runtime: docker
+app: server/app.py
+port: 7860
+description: >
+  An RL environment where an AI agent diagnoses and repairs broken RAG pipelines.
+  The agent receives a broken pipeline config, observable failure symptoms, and
+  retrieval sample triplets — and must identify the root cause and submit a config
+  patch to fix the pipeline. Scored across diagnosis quality, fix correctness, and
+  answer faithfulness. Tasks range from a simple chunk-size error (easy) to a
+  multi-bug silent hallucination scenario (hard).
+
+tasks:
+  - name: chunking_error_001
+    difficulty: easy
+    description: >
+      chunk_size is set to 50 tokens — far too small. Every retrieved chunk is truncated
+      to a few words, destroying semantic content before it reaches the LLM.
+      Agent must identify chunk_size as the root cause and patch it to 256-1024.
+
+  - name: embedding_mismatch_001
+    difficulty: medium
+    description: >
+      Index was built with sentence-transformers/all-MiniLM-L6-v2 but queries use
+      BAAI/bge-large-en-v1.5. Embedding spaces are incompatible — retrieval is essentially
+      random. Agent must patch both index_embedding_model and query_embedding_model to match.
+
+  - name: hallucination_retrieval_001
+    difficulty: hard
+    description: >
+      Four simultaneous bugs: wrong similarity_metric (dot_product vs cosine), stale
+      index_version (v1.2), reranker_enabled=false, context_window_strategy=first_k.
+      Retrieval returns plausible but outdated/irrelevant documents, causing confident
+      hallucinations. Agent must identify and fix all four issues.
+
+metadata:
+  author: RAG Pipeline Doctor Team
+  tags:
+    - openenv
+    - rag
+    - retrieval
+    - llm-evaluation
+    - ml-engineering
+  reward_range: [0.0, 1.0]
+  max_steps_per_episode: 5
