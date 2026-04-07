@@ -5,7 +5,7 @@ Exposes OpenEnv-compliant HTTP endpoints: /reset  /step  /state  /health
 
 import sys
 import os
-
+import uvicorn
 # Load .env file if it exists
 try:
     from dotenv import load_dotenv
@@ -110,6 +110,11 @@ def root():
     }
 
 
+def main():
+    """Entry point for running the server."""
+
+    uvicorn.run(app, host="0.0.0.0", port=7860, workers=1)
+
+
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("app:app", host="0.0.0.0", port=7860, reload=False)
+    main()
