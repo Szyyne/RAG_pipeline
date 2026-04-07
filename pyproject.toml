@@ -33,6 +33,7 @@ dependencies = [
 ]
 
 [project.scripts]
+server = "server.app:main"
 rag-pipeline-doctor = "server.app:main"
 
 [project.optional-dependencies]
